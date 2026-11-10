@@ -38,5 +38,7 @@ description : parameters for testbench
 `define MOON_CPU_TB_PARAM_VH
 
     `define PERIOD_CLK 10.000 // 100 MHz
+    `define MEM_SIZE   10
+    `define MEM_WIDTH  18
 
 `endif

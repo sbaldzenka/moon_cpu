@@ -11,6 +11,7 @@ add wave -noupdate -format Logic -radix HEXADECIMAL -group {testbench} /moon_cpu
 
 add wave -noupdate -divider dut
 add wave -noupdate -format Logic -radix HEXADECIMAL -group {moon_cpu_top} /moon_cpu_tb/dut_inst/*
+add wave -noupdate -format Logic -radix HEXADECIMAL -group {pc} /moon_cpu_tb/dut_inst/pc_inst/*
 
 -- toggle leaf names command
 config wave -signalnamewidth 1

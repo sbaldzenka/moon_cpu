@@ -41,11 +41,18 @@ description : testbench file
 
 module moon_cpu_tb
 #(
-    parameter PERIOD_CLK = `PERIOD_CLK
+    parameter PERIOD_CLK      = `PERIOD_CLK,
+    parameter MEM_ADDR_WIDTH  = `MEM_SIZE,
+    parameter MEM_DATA_WIDTH  = `MEM_WIDTH
 );
 
-    reg system_clk;
-    reg system_resetn;
+    reg                       system_clk;
+    reg                       system_resetn;
+
+    wire                      mem_we;
+    wire [MEM_ADDR_WIDTH-1:0] mem_addr;
+    wire [MEM_DATA_WIDTH-1:0] mem_data_in;
+    wire [MEM_DATA_WIDTH-1:0] mem_data_out;
 
     initial begin
         #0   system_clk    = 1'b0;
@@ -57,8 +64,25 @@ module moon_cpu_tb
 
     moon_cpu dut_inst
     (
-        .i_clk    ( system_clk    ),
-        .i_resetn ( system_resetn )
+        .i_clk      ( system_clk    ),
+        .i_resetn   ( system_resetn ),
+        .o_mem_we   ( mem_we        ),
+        .o_mem_addr ( mem_addr      ),
+        .o_mem_data ( mem_data_out  ),
+        .i_mem_data ( mem_data_in   )
+    );
+
+    defparam instruction_mem_inst.ADDR_WIDTH = MEM_ADDR_WIDTH;
+    defparam instruction_mem_inst.DATA_WIDTH = MEM_DATA_WIDTH;
+    defparam instruction_mem_inst.MEM_FILE   = ""; //"path_to_mem_file/file.mem"
+
+    sp_bram instruction_mem_inst
+    (
+        .i_clk  ( system_clk   ),
+        .i_we   ( mem_we       ),
+        .i_addr ( mem_addr     ),
+        .i_data ( mem_data_out ),
+        .o_data ( mem_data_in  )
     );
 
 endmodule

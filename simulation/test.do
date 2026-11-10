@@ -11,7 +11,10 @@ vmap work work
 vlog ../tb/moon_cpu_tb_param.vh
 vlog ../tb/moon_cpu_tb.v
 
+vlog ../src/periph/sp_bram/sp_bram_verilog/hdl/sp_bram.v
+
 vlog ../src/cpu/moon_cpu.v
+vlog ../src/cpu/pc.v
 
 vsim -t 1ps -voptargs=+acc=lprn -lib work -L work moon_cpu_tb
 

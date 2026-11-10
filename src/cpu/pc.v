@@ -26,42 +26,38 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 
 project     : moon_cpu
 version     : 1.0
-date        : 04.11.2026
+date        : 31.10.2026
 author      : siarhei baldzenka
 e-mail      : sbaldzenka@proton.me
-description : 
+description : program counter
 
 ---------------------------------------------------------------------------------------
 */
 
-`ifndef OPCODES_DEF_VH
-`define OPCODES_DEF_VH
+`timescale 1ns/100ps
 
-    // system and special
-    `define OP_NOP
+module pc
+#(
+    parameter PC_WIDTH = 8
+)
+(
+    // global signals
+    input  wire                i_clk,
+    input  wire                i_resetn,
+    // ouput value
+    output wire [PC_WIDTH-1:0] o_pc
+);
 
-    // control flow / branching
-    `define OP_JMP
-    `define OP_CAL
-    `define OP_RET
+    reg [PC_WIDTH-1:0] pc_next_counter;
 
-    // data movement
-    `define OP_INP
-    `define OP_OUTP
+    assign o_pc = pc_next_counter;
 
-    // arithmetic
-    `define OP_INC
-    `define OP_DEC
-    `define OP_ADD
-    `define OP_SUB
-    `define OP_CMP
+    always @(posedge i_clk or negedge i_resetn) begin
+        if (!i_resetn) begin
+            pc_next_counter <= {PC_WIDTH{1'b0}};
+        end else begin
+            pc_next_counter <= pc_next_counter + 1'b1;
+        end
+    end
 
-    // logical
-    `define OP_NOT
-    `define OP_AND
-    `define OP_OR
-    `define OP_XOR
-    `define OP_SHL
-    `define OP_SHR
-
-`endif
+endmodule
