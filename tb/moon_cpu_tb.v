@@ -74,7 +74,7 @@ module moon_cpu_tb
 
     defparam instruction_mem_inst.ADDR_WIDTH = MEM_ADDR_WIDTH;
     defparam instruction_mem_inst.DATA_WIDTH = MEM_DATA_WIDTH;
-    defparam instruction_mem_inst.MEM_FILE   = ""; //"path_to_mem_file/file.mem"
+    defparam instruction_mem_inst.MEM_FILE   = `SCENARIO;
 
     sp_bram instruction_mem_inst
     (

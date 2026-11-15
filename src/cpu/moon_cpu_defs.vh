@@ -41,33 +41,38 @@ description : defines for moon_cpu
     `define MEM_ADDR_WIDTH 10
     `define MEM_DATA_WIDTH 18
 
+    // registers defines
+    `define REG_NUM        16
+    `define REG_WIDTH      8
 
-
+    // opcodes
+    `define OPCODE_WIDTH   5
     // system and special
-    `define OP_NOP
-
-    // control flow / branching
-    `define OP_JMP
-    `define OP_CAL
-    `define OP_RET
+    `define OP_NOP         5'b00000
 
     // data movement
-    `define OP_INP
-    `define OP_OUTP
+    `define OP_LDA         5'b00001
+    `define OP_INP         5'b00010
+    `define OP_OUTP        5'b00011
 
     // arithmetic
-    `define OP_INC
-    `define OP_DEC
-    `define OP_ADD
-    `define OP_SUB
-    `define OP_CMP
+    `define OP_INC         5'b00100
+    `define OP_DEC         5'b00101
+    `define OP_ADD         5'b00110
+    `define OP_SUB         5'b00111
+    `define OP_CMP         5'b01000
 
     // logical
-    `define OP_NOT
-    `define OP_AND
-    `define OP_OR
-    `define OP_XOR
-    `define OP_SHL
-    `define OP_SHR
+    `define OP_NOT         5'b01001
+    `define OP_AND         5'b01010
+    `define OP_OR          5'b01011
+    `define OP_XOR         5'b01100
+    `define OP_SLL         5'b01101
+    `define OP_SRL         5'b01110
+
+    // control flow / branching
+    `define OP_JMP         5'b01111
+    `define OP_CAL         5'b10000
+    `define OP_RET         5'b10001
 
 `endif

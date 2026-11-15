@@ -44,7 +44,10 @@ module pc
     // global signals
     input  wire                i_clk,
     input  wire                i_resetn,
-    // ouput value
+    // input address
+    input  wire                i_addr_wr,
+    input  wire [PC_WIDTH-1:0] i_addr_data,
+    // ouput address
     output wire [PC_WIDTH-1:0] o_pc
 );
 
@@ -52,9 +55,11 @@ module pc
 
     assign o_pc = pc_next_counter;
 
-    always @(posedge i_clk or negedge i_resetn) begin
+    always @(posedge i_clk or i_addr_wr or negedge i_resetn) begin
         if (!i_resetn) begin
-            pc_next_counter <= {PC_WIDTH{1'b0}};
+            pc_next_counter <= {PC_WIDTH{1'b1}};
+        end else if (i_addr_wr) begin
+            pc_next_counter <= i_addr_data;
         end else begin
             pc_next_counter <= pc_next_counter + 1'b1;
         end

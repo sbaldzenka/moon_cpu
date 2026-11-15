@@ -41,4 +41,7 @@ description : parameters for testbench
     `define MEM_SIZE   10
     `define MEM_WIDTH  18
 
+    // scenarios
+    `define SCENARIO "../tb/mem_files/led_blink.mem"
+
 `endif
